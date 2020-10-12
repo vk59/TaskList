@@ -32,12 +32,12 @@ class TasksListFragment : Fragment() {
             Navigation
                 .findNavController(it).navigate(R.id.action_tasksListFragment_to_addTaskFragment)
         }
+
+        val taskAdapter: TaskAdapter = TaskAdapter()
+        binding.tasksList.adapter = taskAdapter
+
         tasksListViewModel.tasksList.observe(viewLifecycleOwner, { tasks: List<Task> ->
-            val stringBuilder: StringBuilder = StringBuilder()
-            for (task: Task in tasks) {
-                stringBuilder.append(task.taskName + " " + task.taskImportance + "\n")
-            }
-            binding.tasksList.text = stringBuilder.toString()
+            taskAdapter.setData(data = tasks)
         })
         return binding.root
     }
