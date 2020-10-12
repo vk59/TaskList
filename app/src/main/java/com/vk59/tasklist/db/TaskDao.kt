@@ -21,5 +21,5 @@ interface TaskDao {
     fun deleteAll()
 
     @Query("SELECT * FROM tasks WHERE id = :id")
-    fun getTask(id: Long): LiveData<Task?>?
+    fun getTask(id: Long): LiveData<Task?>
 }

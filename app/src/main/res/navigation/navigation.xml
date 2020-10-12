@@ -14,6 +14,9 @@
         android:id="@+id/editTaskFragment"
         android:name="com.vk59.tasklist.EditTaskFragment"
         android:label="Edit Task">
+        <argument
+            android:name="taskId"
+            app:argType="long"/>
         <action
             android:id="@+id/action_editTaskFragment_to_tasksListFragment"
             app:destination="@id/tasksListFragment" />
@@ -27,6 +30,7 @@
             app:destination="@id/addTaskFragment" />
         <action
             android:id="@+id/action_tasksListFragment_to_editTaskFragment"
-            app:destination="@id/editTaskFragment" />
+            app:destination="@id/editTaskFragment">
+        </action>
     </fragment>
 </navigation>

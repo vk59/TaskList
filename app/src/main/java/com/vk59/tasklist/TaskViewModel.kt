@@ -12,7 +12,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private var db: TaskDB = TaskDB.getDatabase(application)!!
     private var dao: TaskDao = db.taskDao()!!
 
-    var task: LiveData<Task?>? = null
+    lateinit var task: LiveData<Task?>
 
     var _eventTaskAdd = MutableLiveData<Boolean>()
 
