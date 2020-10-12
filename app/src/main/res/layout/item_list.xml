@@ -1,47 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imageImportance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_one"
-        android:layout_weight="1"/>
+    <data>
+        <variable
+            name="task"
+            type="com.vk59.tasklist.db.Task" />
+        
+        <variable
+            name="clickListener"
+            type="com.vk59.tasklist.ItemClickListener" />
+    </data>
 
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="50">
-        <TextView
-            android:id="@+id/taskNameText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:onClick="@{() -> clickListener.onClick(task)}">
 
-        <TextView
-            android:id="@+id/textTaskDescription"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageImportance"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Description"/>
+            android:src="@drawable/ic_one"
+            android:layout_weight="1"
+            app:taskImportanceImage="@{task}"/>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="50">
+
+            <TextView
+                android:id="@+id/taskNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{task.taskName}"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textTaskDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{task.taskDescription}" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageTaskStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_done"
+            android:layout_weight="1"
+            app:taskStatusImage="@{task}"/>
+
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageTaskStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_done"
-        android:layout_weight="1"/>
-
-</LinearLayout>
+</layout>

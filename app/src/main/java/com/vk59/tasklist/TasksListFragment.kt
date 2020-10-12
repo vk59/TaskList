@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.snackbar.Snackbar
 import com.vk59.tasklist.databinding.FragmentTasksListBinding
 import com.vk59.tasklist.db.Task
 
@@ -33,11 +34,15 @@ class TasksListFragment : Fragment() {
                 .findNavController(it).navigate(R.id.action_tasksListFragment_to_addTaskFragment)
         }
 
-        val taskAdapter: TaskAdapter = TaskAdapter()
+        val taskAdapter: TaskAdapter = TaskAdapter(TaskDiffCallback(), object : ItemClickListener {
+            override fun onClick(task: Task) {
+                Snackbar.make(binding.root, task.taskName, Snackbar.LENGTH_LONG).show()
+            }
+        })
         binding.tasksList.adapter = taskAdapter
 
-        tasksListViewModel.tasksList.observe(viewLifecycleOwner, { tasks: List<Task> ->
-            taskAdapter.setData(data = tasks)
+        tasksListViewModel.tasksList.observe(viewLifecycleOwner, { tasks: List<Task>? ->
+            taskAdapter.submitList(tasks)
         })
         return binding.root
     }
