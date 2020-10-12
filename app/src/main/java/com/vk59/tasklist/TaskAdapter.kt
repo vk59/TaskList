@@ -10,28 +10,13 @@ class TaskAdapter : RecyclerView.Adapter<ItemViewHolder>() {
     private var data: List<Task>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val inflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val view: View = inflater.inflate(R.layout.item_list, parent, false)
-        return ItemViewHolder(view)
+        return ItemViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         if (data != null) {
             val task: Task = data!![position]
-            holder.taskNameText.text = task.taskName
-
-            when(task.taskImportance) {
-                Task.TASK_IMPORTANCE_LOW -> holder.imageImportance.setImageResource(R.drawable.ic_three)
-                Task.TASK_IMPORTANCE_NORMAL -> holder.imageImportance.setImageResource(R.drawable.ic_two)
-                Task.TASK_IMPORTANCE_HIGH -> holder.imageImportance.setImageResource(R.drawable.ic_one)
-            }
-
-            when(task.taskStatus) {
-                Task.TASK_STATUS_FINISHED -> holder.imageTaskStatus.setImageResource(R.drawable.ic_done)
-                Task.TASK_STATUS_NOT_FINISHED -> holder.imageTaskStatus.setImageResource(R.drawable.ic_not_done)
-            }
-
-            holder.textTaskDescription.text = task.taskDescription
+            holder.bind(task)
         } else
         {
             holder.taskNameText.text = ("No tasks")
@@ -46,4 +31,5 @@ class TaskAdapter : RecyclerView.Adapter<ItemViewHolder>() {
         this.data = data
         notifyDataSetChanged()
     }
+
 }
